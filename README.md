@@ -53,7 +53,7 @@ A complete React application for tracking vehicle trips and road adventures with
    ```
 
 3. **Open in Browser**
-   Navigate to `http://localhost:5173`
+   Navigate to `https://travel-ten-roan.vercel.app/`
 
 ## Usage
 

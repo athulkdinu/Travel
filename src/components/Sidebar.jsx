@@ -119,7 +119,7 @@ const Sidebar = ({ open, onClose, onShowAllTrips, onShowFavorites, onOpenMap, sh
           🎯 Quick Stats
         </Typography>
         <Typography variant="caption" sx={{ color: 'text.secondary', fontSize: '0.75rem' }}>
-          Your adventure awaits!
+          Your adventure is here 
         </Typography>
       </Box>
     </Drawer>

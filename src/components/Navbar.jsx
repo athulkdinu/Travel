@@ -67,7 +67,7 @@ const Navbar = ({ onOpenSidebar, mapOpen, setMapOpen }) => {
             <CarIcon sx={{ fontSize: { xs: 24, sm: 32 } }} />
             <Box>
               <Typography variant="h6" component="div" sx={{ fontWeight: 700, letterSpacing: 0.5, fontSize: { xs: '0.9rem', sm: '1.25rem' } }}>
-                🚗 Adventure Tracker
+                🚗 Trip Tracker
               </Typography>
               <Typography variant="caption" sx={{ opacity: 0.95, fontWeight: 500, display: { xs: 'none', sm: 'block' } }}>
                 Track your road adventures
@@ -94,16 +94,7 @@ const Navbar = ({ onOpenSidebar, mapOpen, setMapOpen }) => {
               transition: 'all 0.2s'
             }} 
           />
-          <Chip 
-            label="📈 Analytics" 
-            size="small" 
-            sx={{ 
-              bgcolor: 'rgba(255,152,0,0.8)', 
-              color: 'white',
-              fontWeight: 600,
-              display: { xs: 'none', md: 'flex' }
-            }} 
-          />
+         
           
           <Tooltip title="Notifications">
             <IconButton 
@@ -120,7 +111,7 @@ const Navbar = ({ onOpenSidebar, mapOpen, setMapOpen }) => {
 
           <Tooltip title="Profile">
             <IconButton color="inherit" onClick={handleOpenMenu}>
-              <Avatar sx={{ width: { xs: 32, sm: 36 }, height: { xs: 32, sm: 36 }, bgcolor: '#ff9800', fontWeight: 700 }}>VT</Avatar>
+              <Avatar sx={{ width: { xs: 32, sm: 36 }, height: { xs: 32, sm: 36 }, bgcolor: '#ff9800', fontWeight: 700 }}>👤</Avatar>
             </IconButton>
           </Tooltip>
           
