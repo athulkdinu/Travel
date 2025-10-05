@@ -34,6 +34,8 @@ function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [galleryOpen, setGalleryOpen] = useState(false);
   const [selectedTrip, setSelectedTrip] = useState(null);
+  const [showOnlyFavorites, setShowOnlyFavorites] = useState(false);
+  const [mapOpen, setMapOpen] = useState(false);
 
   // Load trips from localStorage
   useEffect(() => {
@@ -56,6 +58,8 @@ function App() {
     }
 
     if (filterType !== 'all') result = result.filter(t => t.vehicleType === filterType);
+    
+    if (showOnlyFavorites) result = result.filter(t => t.isFavorite);
 
     result.sort((a, b) => {
       if (sortBy === 'date') return new Date(b.date) - new Date(a.date);
@@ -65,7 +69,7 @@ function App() {
     });
 
     setFilteredTrips(result);
-  }, [trips, searchTerm, filterType, sortBy]);
+  }, [trips, searchTerm, filterType, sortBy, showOnlyFavorites]);
 
   // Trip operations
   const addTrip = tripData => {
@@ -99,14 +103,36 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Box sx={{ minHeight: '100vh', background: 'linear-gradient(135deg, #e3f2fd 0%, #fff3e0 50%, #e8f5e9 100%)', backgroundAttachment: 'fixed' }}>
-        <Navbar onOpenSidebar={() => setSidebarOpen(true)} />
-        <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+        <Navbar 
+          onOpenSidebar={() => setSidebarOpen(true)} 
+          mapOpen={mapOpen}
+          setMapOpen={setMapOpen}
+        />
+        <Sidebar 
+          open={sidebarOpen} 
+          onClose={() => setSidebarOpen(false)}
+          onShowAllTrips={() => {
+            setShowOnlyFavorites(false);
+            setSidebarOpen(false);
+          }}
+          onShowFavorites={() => {
+            setShowOnlyFavorites(true);
+            setSidebarOpen(false);
+          }}
+          onOpenMap={() => {
+            setMapOpen(true);
+            setSidebarOpen(false);
+          }}
+          showOnlyFavorites={showOnlyFavorites}
+        />
 
-        <Box sx={{ display: 'flex', gap: 3, px: 3, py: 4 }}>
+        <Box sx={{ display: 'flex', gap: 3, px: { xs: 2, sm: 3 }, py: { xs: 2, sm: 4 } }}>
           {/* Main Content */}
           <Box sx={{ flex: 1, minWidth: 0 }}>
-            <Typography variant="h3" sx={{ fontWeight: 700, mb: 1, color: '#1565c0' }}>Your Trips</Typography>
-            <Typography variant="body1" sx={{ color: 'text.secondary', fontSize: '1.125rem', mb: 3 }}>Track and manage your vehicle journeys with ease</Typography>
+            <Typography variant="h3" sx={{ fontWeight: 700, mb: 1, color: '#1565c0', fontSize: { xs: '1.75rem', sm: '2.5rem', md: '3rem' } }}>
+              {showOnlyFavorites ? '⭐ Favorite Trips' : 'Your Trips'}
+            </Typography>
+            <Typography variant="body1" sx={{ color: 'text.secondary', fontSize: { xs: '0.9rem', sm: '1rem', md: '1.125rem' }, mb: 3 }}>Track and manage your vehicle journeys with ease</Typography>
 
             <FilterBar
               searchTerm={searchTerm} setSearchTerm={setSearchTerm}
@@ -169,15 +195,19 @@ function App() {
         <Fab
           color="primary" onClick={openAddModal}
           sx={{
-            position: 'fixed', bottom: 32, right: 32, zIndex: 1000,
-            width: 64, height: 64,
+            position: 'fixed', 
+            bottom: { xs: 16, sm: 32 }, 
+            right: { xs: 16, sm: 32 }, 
+            zIndex: 1000,
+            width: { xs: 56, sm: 64 }, 
+            height: { xs: 56, sm: 64 },
             background: 'linear-gradient(135deg, #1976d2 0%, #1565c0 100%)',
             boxShadow: '0 8px 24px rgba(25,118,210,0.4)',
             '&:hover': { background: 'linear-gradient(135deg, #1565c0 0%, #0d47a1 100%)', transform: 'scale(1.1) rotate(90deg)', boxShadow: '0 12px 32px rgba(25,118,210,0.6)' },
             transition: 'all 0.3s ease'
           }}
         >
-          <AddIcon sx={{ fontSize: 32 }} />
+          <AddIcon sx={{ fontSize: { xs: 28, sm: 32 } }} />
         </Fab>
 
         {/* Modals */}

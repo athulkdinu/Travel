@@ -26,9 +26,8 @@ import {
 } from '@mui/icons-material';
 import { useState } from 'react';
 
-const Navbar = ({ onOpenSidebar }) => {
+const Navbar = ({ onOpenSidebar, mapOpen, setMapOpen }) => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [mapOpen, setMapOpen] = useState(false);
   const open = Boolean(anchorEl);
   const handleOpenMenu = (e) => setAnchorEl(e.currentTarget);
   const handleCloseMenu = () => setAnchorEl(null);
@@ -45,7 +44,7 @@ const Navbar = ({ onOpenSidebar }) => {
       }}
     >
       <Toolbar>
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 1, sm: 2 } }}>
           <IconButton 
             size="large" 
             edge="start" 
@@ -59,18 +58,18 @@ const Navbar = ({ onOpenSidebar }) => {
           <Box sx={{ 
             display: 'flex', 
             alignItems: 'center', 
-            gap: 1.5,
+            gap: { xs: 1, sm: 1.5 },
             background: 'rgba(255,255,255,0.15)',
-            px: 2,
+            px: { xs: 1.5, sm: 2 },
             py: 0.5,
             borderRadius: 3
           }}>
-            <CarIcon sx={{ fontSize: 32 }} />
+            <CarIcon sx={{ fontSize: { xs: 24, sm: 32 } }} />
             <Box>
-              <Typography variant="h6" component="div" sx={{ fontWeight: 700, letterSpacing: 0.5 }}>
+              <Typography variant="h6" component="div" sx={{ fontWeight: 700, letterSpacing: 0.5, fontSize: { xs: '0.9rem', sm: '1.25rem' } }}>
                 🚗 Adventure Tracker
               </Typography>
-              <Typography variant="caption" sx={{ opacity: 0.95, fontWeight: 500 }}>
+              <Typography variant="caption" sx={{ opacity: 0.95, fontWeight: 500, display: { xs: 'none', sm: 'block' } }}>
                 Track your road adventures
               </Typography>
             </Box>
@@ -87,6 +86,7 @@ const Navbar = ({ onOpenSidebar }) => {
               color: 'white',
               fontWeight: 600,
               cursor: 'pointer',
+              display: { xs: 'none', md: 'flex' },
               '&:hover': {
                 bgcolor: 'rgba(255,255,255,0.3)',
                 transform: 'scale(1.05)'
@@ -100,7 +100,8 @@ const Navbar = ({ onOpenSidebar }) => {
             sx={{ 
               bgcolor: 'rgba(255,152,0,0.8)', 
               color: 'white',
-              fontWeight: 600
+              fontWeight: 600,
+              display: { xs: 'none', md: 'flex' }
             }} 
           />
           
@@ -109,6 +110,7 @@ const Navbar = ({ onOpenSidebar }) => {
               color="inherit" 
               sx={{ 
                 bgcolor: 'rgba(255,255,255,0.1)',
+                display: { xs: 'none', sm: 'inline-flex' },
                 '&:hover': { bgcolor: 'rgba(255,255,255,0.2)' }
               }}
             >
@@ -118,7 +120,7 @@ const Navbar = ({ onOpenSidebar }) => {
 
           <Tooltip title="Profile">
             <IconButton color="inherit" onClick={handleOpenMenu}>
-              <Avatar sx={{ width: 36, height: 36, bgcolor: '#ff9800', fontWeight: 700 }}>VT</Avatar>
+              <Avatar sx={{ width: { xs: 32, sm: 36 }, height: { xs: 32, sm: 36 }, bgcolor: '#ff9800', fontWeight: 700 }}>VT</Avatar>
             </IconButton>
           </Tooltip>
           

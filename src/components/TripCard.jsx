@@ -80,7 +80,7 @@ const TripCard = ({ trip, onEdit, onDelete, onToggleFavorite, onOpenGallery }) =
       }
     }}>
       {/* Image Section */}
-      <Box sx={{ position: 'relative', height: 200, overflow: 'hidden' }}>
+      <Box sx={{ position: 'relative', height: { xs: 160, sm: 200 }, overflow: 'hidden' }}>
         {trip.image ? (
           <CardMedia
             component="img"
@@ -90,6 +90,7 @@ const TripCard = ({ trip, onEdit, onDelete, onToggleFavorite, onOpenGallery }) =
             sx={{ 
               objectFit: 'cover',
               transition: 'transform 0.3s ease',
+              height: '100%',
               '&:hover': {
                 transform: 'scale(1.1)'
               }
@@ -104,7 +105,7 @@ const TripCard = ({ trip, onEdit, onDelete, onToggleFavorite, onOpenGallery }) =
               justifyContent: 'center',
               background: 'linear-gradient(135deg, #e3f2fd 0%, #fff3e0 100%)',
               color: '#1976d2',
-              fontSize: '3rem'
+              fontSize: { xs: '2.5rem', sm: '3rem' }
             }}
           >
             {getVehicleIcon(trip.vehicleType)}
@@ -148,14 +149,15 @@ const TripCard = ({ trip, onEdit, onDelete, onToggleFavorite, onOpenGallery }) =
       </Box>
 
       {/* Content Section */}
-      <CardContent sx={{ flexGrow: 1, pb: 1 }}>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
+      <CardContent sx={{ flexGrow: 1, pb: 1, p: { xs: 1.5, sm: 2 } }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: { xs: 1.5, sm: 2 }, flexWrap: 'wrap', gap: 1 }}>
           <Typography variant="h6" component="h3" sx={{ 
             fontWeight: 700, 
             flexGrow: 1, 
             mr: 1,
             color: '#1565c0',
-            lineHeight: 1.3
+            lineHeight: 1.3,
+            fontSize: { xs: '1rem', sm: '1.25rem' }
           }}>
             {trip.route}
           </Typography>
@@ -166,22 +168,23 @@ const TripCard = ({ trip, onEdit, onDelete, onToggleFavorite, onOpenGallery }) =
             icon={getVehicleIcon(trip.vehicleType)}
             sx={{ 
               fontWeight: 600,
-              borderRadius: 2
+              borderRadius: 2,
+              fontSize: { xs: '0.7rem', sm: '0.8125rem' }
             }}
           />
         </Box>
 
-        <Stack spacing={1.5} sx={{ mb: 2 }}>
+        <Stack spacing={{ xs: 1, sm: 1.5 }} sx={{ mb: { xs: 1.5, sm: 2 } }}>
           <Box sx={{ 
             display: 'flex', 
             alignItems: 'center', 
-            gap: 1,
-            p: 1,
+            gap: { xs: 0.5, sm: 1 },
+            p: { xs: 0.75, sm: 1 },
             bgcolor: '#e3f2fd',
             borderRadius: 2
           }}>
-            <DistanceIcon sx={{ fontSize: 18, color: '#1976d2' }} />
-            <Typography variant="body2" sx={{ fontWeight: 600, color: '#1565c0' }}>
+            <DistanceIcon sx={{ fontSize: { xs: 16, sm: 18 }, color: '#1976d2' }} />
+            <Typography variant="body2" sx={{ fontWeight: 600, color: '#1565c0', fontSize: { xs: '0.75rem', sm: '0.875rem' } }}>
               {trip.distance} km
             </Typography>
           </Box>
@@ -189,13 +192,13 @@ const TripCard = ({ trip, onEdit, onDelete, onToggleFavorite, onOpenGallery }) =
           <Box sx={{ 
             display: 'flex', 
             alignItems: 'center', 
-            gap: 1,
-            p: 1,
+            gap: { xs: 0.5, sm: 1 },
+            p: { xs: 0.75, sm: 1 },
             bgcolor: '#fff3e0',
             borderRadius: 2
           }}>
-            <CalendarIcon sx={{ fontSize: 18, color: '#f57c00' }} />
-            <Typography variant="body2" sx={{ fontWeight: 600, color: '#e65100' }}>
+            <CalendarIcon sx={{ fontSize: { xs: 16, sm: 18 }, color: '#f57c00' }} />
+            <Typography variant="body2" sx={{ fontWeight: 600, color: '#e65100', fontSize: { xs: '0.75rem', sm: '0.875rem' } }}>
               {formatDate(trip.date)}
             </Typography>
           </Box>
@@ -211,7 +214,7 @@ const TripCard = ({ trip, onEdit, onDelete, onToggleFavorite, onOpenGallery }) =
               WebkitBoxOrient: 'vertical',
               overflow: 'hidden',
               fontStyle: 'italic',
-              fontSize: '0.875rem',
+              fontSize: { xs: '0.75rem', sm: '0.875rem' },
               lineHeight: 1.5
             }}
           >
@@ -222,10 +225,11 @@ const TripCard = ({ trip, onEdit, onDelete, onToggleFavorite, onOpenGallery }) =
 
       {/* Action Buttons */}
       <CardActions sx={{ 
-        p: 2, 
+        p: { xs: 1.5, sm: 2 }, 
         pt: 1,
-        gap: 1,
-        borderTop: '2px solid #f5f5f5'
+        gap: { xs: 0.5, sm: 1 },
+        borderTop: '2px solid #f5f5f5',
+        flexWrap: 'wrap'
       }}>
         <Button
           onClick={onEdit}
@@ -237,6 +241,9 @@ const TripCard = ({ trip, onEdit, onDelete, onToggleFavorite, onOpenGallery }) =
             fontWeight: 600,
             borderRadius: 2,
             borderWidth: 2,
+            fontSize: { xs: '0.75rem', sm: '0.875rem' },
+            minWidth: { xs: 'auto', sm: 'initial' },
+            px: { xs: 1, sm: 2 },
             '&:hover': {
               borderWidth: 2,
               transform: 'translateY(-2px)',
@@ -259,6 +266,9 @@ const TripCard = ({ trip, onEdit, onDelete, onToggleFavorite, onOpenGallery }) =
             fontWeight: 600,
             borderRadius: 2,
             borderWidth: 2,
+            fontSize: { xs: '0.75rem', sm: '0.875rem' },
+            minWidth: { xs: 'auto', sm: 'initial' },
+            px: { xs: 1, sm: 2 },
             '&:hover': {
               borderWidth: 2,
               transform: 'translateY(-2px)',
@@ -278,6 +288,9 @@ const TripCard = ({ trip, onEdit, onDelete, onToggleFavorite, onOpenGallery }) =
             border: '2px solid',
             borderColor: 'error.main',
             borderRadius: 2,
+            minWidth: { xs: 32, sm: 40 },
+            width: { xs: 32, sm: 40 },
+            height: { xs: 32, sm: 40 },
             '&:hover': {
               transform: 'translateY(-2px)',
               boxShadow: '0 4px 8px rgba(211,47,47,0.2)'
@@ -285,7 +298,7 @@ const TripCard = ({ trip, onEdit, onDelete, onToggleFavorite, onOpenGallery }) =
             transition: 'all 0.2s'
           }}
         >
-          <DeleteIcon />
+          <DeleteIcon sx={{ fontSize: { xs: 18, sm: 20 } }} />
         </IconButton>
       </CardActions>
     </Card>

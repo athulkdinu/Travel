@@ -10,22 +10,16 @@ import {
   Divider
 } from '@mui/material';
 import { 
-  Home as HomeIcon,
   DirectionsCar as CarIcon,
   Favorite as FavoriteIcon,
-  Settings as SettingsIcon,
-  Analytics as AnalyticsIcon,
-  History as HistoryIcon
+  Map as MapIcon
 } from '@mui/icons-material';
 
-const Sidebar = ({ open, onClose }) => {
+const Sidebar = ({ open, onClose, onShowAllTrips, onShowFavorites, onOpenMap, showOnlyFavorites }) => {
   const menuItems = [
-    { text: 'Dashboard', icon: <HomeIcon /> },
-    { text: 'All Trips', icon: <CarIcon /> },
-    { text: 'Favorites', icon: <FavoriteIcon /> },
-    { text: 'Analytics', icon: <AnalyticsIcon /> },
-    { text: 'History', icon: <HistoryIcon /> },
-    { text: 'Settings', icon: <SettingsIcon /> },
+    { text: 'All Trips', icon: <CarIcon />, onClick: onShowAllTrips, active: !showOnlyFavorites },
+    { text: 'Favorited', icon: <FavoriteIcon />, onClick: onShowFavorites, active: showOnlyFavorites },
+    { text: 'Map', icon: <MapIcon />, onClick: onOpenMap, active: false },
   ];
 
   return (
@@ -75,9 +69,12 @@ const Sidebar = ({ open, onClose }) => {
         {menuItems.map((item, index) => (
           <ListItem key={item.text} disablePadding sx={{ mb: 1 }}>
             <ListItemButton
+              onClick={item.onClick}
               sx={{
                 borderRadius: 2,
                 py: 1.5,
+                bgcolor: item.active ? '#e3f2fd' : 'transparent',
+                border: item.active ? '2px solid #1976d2' : '2px solid transparent',
                 '&:hover': {
                   bgcolor: '#e3f2fd',
                   transform: 'translateX(4px)',
@@ -90,7 +87,7 @@ const Sidebar = ({ open, onClose }) => {
             >
               <ListItemIcon sx={{ 
                 minWidth: 40,
-                color: '#1976d2',
+                color: item.active ? '#1976d2' : '#666',
                 transition: 'color 0.2s'
               }}>
                 {item.icon}
@@ -98,8 +95,9 @@ const Sidebar = ({ open, onClose }) => {
               <ListItemText 
                 primary={item.text}
                 primaryTypographyProps={{
-                  fontWeight: 600,
-                  fontSize: '0.95rem'
+                  fontWeight: item.active ? 700 : 600,
+                  fontSize: '0.95rem',
+                  color: item.active ? '#1976d2' : 'inherit'
                 }}
               />
             </ListItemButton>

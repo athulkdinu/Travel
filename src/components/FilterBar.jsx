@@ -24,7 +24,7 @@ const FilterBar = ({
     <Paper 
       elevation={2}
       sx={{ 
-        p: 3, 
+        p: { xs: 2, sm: 3 }, 
         mb: 3, 
         borderRadius: 3,
         background: 'linear-gradient(135deg, #ffffff 0%, #e3f2fd 100%)',
@@ -39,7 +39,8 @@ const FilterBar = ({
           alignItems: 'center', 
           gap: 1,
           color: '#1565c0',
-          fontWeight: 700
+          fontWeight: 700,
+          fontSize: { xs: '1rem', sm: '1.25rem' }
         }}
       >
         <FilterIcon />
@@ -59,7 +60,8 @@ const FilterBar = ({
             ),
           }}
           sx={{ 
-            minWidth: 250,
+            flex: { xs: '1 1 100%', sm: '1 1 250px' },
+            minWidth: { xs: '100%', sm: '250px' },
             '& .MuiOutlinedInput-root': {
               bgcolor: 'white',
               '&:hover': {
@@ -69,7 +71,7 @@ const FilterBar = ({
           }}
         />
 
-        <FormControl sx={{ minWidth: 150 }}>
+        <FormControl sx={{ flex: { xs: '1 1 100%', sm: '0 0 150px' }, minWidth: { xs: '100%', sm: '150px' } }}>
           <InputLabel>🚗 Vehicle Type</InputLabel>
           <Select
             value={filterType}
@@ -85,7 +87,7 @@ const FilterBar = ({
           </Select>
         </FormControl>
 
-        <FormControl sx={{ minWidth: 140 }}>
+        <FormControl sx={{ flex: { xs: '1 1 100%', sm: '0 0 140px' }, minWidth: { xs: '100%', sm: '140px' } }}>
           <InputLabel>📊 Sort By</InputLabel>
           <Select
             value={sortBy}
