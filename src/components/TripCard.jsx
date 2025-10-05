@@ -19,7 +19,8 @@ import {
   PhotoLibrary as GalleryIcon,
   DirectionsCar as CarIcon,
   DirectionsBike as BikeIcon,
-  LocalShipping as TruckIcon,
+  DirectionsBus as BusIcon,
+  Train as TrainIcon,
   TwoWheeler as MotorcycleIcon,
   Straighten as DistanceIcon,
   CalendarToday as CalendarIcon
@@ -40,8 +41,10 @@ const TripCard = ({ trip, onEdit, onDelete, onToggleFavorite, onOpenGallery }) =
         return <CarIcon />;
       case 'bike':
         return <BikeIcon />;
-      case 'truck':
-        return <TruckIcon />;
+      case 'bus':
+        return <BusIcon />;
+      case 'train':
+        return <TrainIcon />;
       case 'motorcycle':
         return <MotorcycleIcon />;
       default:
@@ -55,8 +58,10 @@ const TripCard = ({ trip, onEdit, onDelete, onToggleFavorite, onOpenGallery }) =
         return 'primary';
       case 'bike':
         return 'secondary';
-      case 'truck':
+      case 'bus':
         return 'success';
+      case 'train':
+        return 'info';
       case 'motorcycle':
         return 'warning';
       default:

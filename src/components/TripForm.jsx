@@ -23,7 +23,8 @@ import {
   PhotoCamera as PhotoIcon,
   DirectionsCar as CarIcon,
   DirectionsBike as BikeIcon,
-  LocalShipping as TruckIcon,
+  DirectionsBus as BusIcon,
+  Train as TrainIcon,
   TwoWheeler as MotorcycleIcon
 } from '@mui/icons-material';
 
@@ -126,8 +127,10 @@ const TripForm = ({ trip, onSave, onClose }) => {
         return <CarIcon />;
       case 'bike':
         return <BikeIcon />;
-      case 'truck':
-        return <TruckIcon />;
+      case 'bus':
+        return <BusIcon />;
+      case 'train':
+        return <TrainIcon />;
       case 'motorcycle':
         return <MotorcycleIcon />;
       default:
@@ -239,7 +242,8 @@ const TripForm = ({ trip, onSave, onClose }) => {
             >
               <MenuItem value="car">Car</MenuItem>
               <MenuItem value="bike">Bike</MenuItem>
-              <MenuItem value="truck">Truck</MenuItem>
+              <MenuItem value="bus">Bus</MenuItem>
+              <MenuItem value="train">Train</MenuItem>
               <MenuItem value="motorcycle">Motorcycle</MenuItem>
             </Select>
           </FormControl>

@@ -82,7 +82,8 @@ const FilterBar = ({
             <MenuItem value="all">All Vehicles</MenuItem>
             <MenuItem value="car">🚗 Car</MenuItem>
             <MenuItem value="bike">🚲 Bike</MenuItem>
-            <MenuItem value="truck">🚚 Truck</MenuItem>
+            <MenuItem value="bus">🚌 Bus</MenuItem>
+            <MenuItem value="train">🚆 Train</MenuItem>
             <MenuItem value="motorcycle">🏍️ Motorcycle</MenuItem>
           </Select>
         </FormControl>
