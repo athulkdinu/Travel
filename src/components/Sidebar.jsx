@@ -38,7 +38,7 @@ const Sidebar = ({ open, onClose, onShowAllTrips, onShowFavorites, onOpenMap, sh
   // Add weather option if enabled
   if (WEATHER_APP_CONFIG.enabled && WEATHER_APP_CONFIG.showInSidebar) {
     menuItems.push({ 
-      text: 'Weather App', 
+      text: 'Weather Forecast', 
       icon: <WeatherIcon />, 
       onClick: handleWeatherClick, 
       active: false,

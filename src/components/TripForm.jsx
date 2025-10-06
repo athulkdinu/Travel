@@ -255,7 +255,7 @@ const TripForm = ({ trip, onSave, onClose }) => {
             name="route"
             value={formData.route}
             onChange={handleInputChange}
-            placeholder="e.g., New York to Boston"
+            placeholder="e.g., Kottayam to Trivandrum"
             required
           />
 
