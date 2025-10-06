@@ -13,7 +13,9 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  Button
+  Button,
+  Divider,
+  ListItemIcon
 } from '@mui/material';
 import { 
   Menu as MenuIcon, 
@@ -25,14 +27,34 @@ import {
   Close as CloseIcon
 } from '@mui/icons-material';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const Navbar = ({ onOpenSidebar, mapOpen, setMapOpen }) => {
+  const navigate = useNavigate();
+  const { user, logout } = useAuth();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleOpenMenu = (e) => setAnchorEl(e.currentTarget);
   const handleCloseMenu = () => setAnchorEl(null);
   const handleOpenMap = () => setMapOpen(true);
   const handleCloseMap = () => setMapOpen(false);
+
+  const handleLogout = () => {
+    handleCloseMenu();
+    logout();
+    navigate('/login');
+  };
+
+  // Get user initials for avatar
+  const getInitials = (name) => {
+    if (!name) return 'U';
+    const names = name.split(' ');
+    if (names.length >= 2) {
+      return `${names[0][0]}${names[1][0]}`.toUpperCase();
+    }
+    return name.substring(0, 2).toUpperCase();
+  };
 
   return (
     <AppBar 
@@ -109,23 +131,76 @@ const Navbar = ({ onOpenSidebar, mapOpen, setMapOpen }) => {
             </IconButton>
           </Tooltip>
 
-          <Tooltip title="Profile">
+          <Tooltip title={user?.fullName || 'Profile'}>
             <IconButton color="inherit" onClick={handleOpenMenu}>
-              <Avatar sx={{ width: { xs: 32, sm: 36 }, height: { xs: 32, sm: 36 }, bgcolor: '#ff9800', fontWeight: 700 }}>👤</Avatar>
+              <Avatar 
+                sx={{ 
+                  width: { xs: 32, sm: 36 }, 
+                  height: { xs: 32, sm: 36 }, 
+                  bgcolor: '#ff9800', 
+                  fontWeight: 700,
+                  fontSize: { xs: '0.9rem', sm: '1rem' }
+                }}
+              >
+                {user ? getInitials(user.fullName) : '👤'}
+              </Avatar>
             </IconButton>
           </Tooltip>
           
-          <Menu anchorEl={anchorEl} open={open} onClose={handleCloseMenu}>
-            <MenuItem onClick={handleCloseMenu}>
-              <PersonIcon sx={{ mr: 1 }} fontSize="small" />
-              Profile
+          <Menu 
+            anchorEl={anchorEl} 
+            open={open} 
+            onClose={handleCloseMenu}
+            PaperProps={{
+              sx: {
+                mt: 1.5,
+                minWidth: 220,
+                borderRadius: 2,
+                boxShadow: '0 4px 20px rgba(0,0,0,0.1)'
+              }
+            }}
+            transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+            anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+          >
+            <Box sx={{ px: 2, py: 1.5, bgcolor: '#f5f5f5' }}>
+              <Typography variant="subtitle1" sx={{ fontWeight: 600, color: '#1976d2' }}>
+                {user?.fullName}
+              </Typography>
+              <Typography variant="caption" color="text.secondary" sx={{ display: 'block' }}>
+                @{user?.username}
+              </Typography>
+              <Typography variant="caption" color="text.secondary">
+                {user?.email}
+              </Typography>
+            </Box>
+            <Divider />
+            <MenuItem onClick={handleCloseMenu} sx={{ py: 1.5 }}>
+              <ListItemIcon>
+                <PersonIcon fontSize="small" />
+              </ListItemIcon>
+              My Profile
             </MenuItem>
-            <MenuItem onClick={handleCloseMenu}>
-              <SettingsIcon sx={{ mr: 1 }} fontSize="small" />
+            <MenuItem onClick={handleCloseMenu} sx={{ py: 1.5 }}>
+              <ListItemIcon>
+                <SettingsIcon fontSize="small" />
+              </ListItemIcon>
               Settings
             </MenuItem>
-            <MenuItem onClick={handleCloseMenu}>
-              <LogoutIcon sx={{ mr: 1 }} fontSize="small" />
+            <Divider />
+            <MenuItem 
+              onClick={handleLogout} 
+              sx={{ 
+                py: 1.5, 
+                color: 'error.main',
+                '&:hover': {
+                  bgcolor: 'error.light',
+                  color: 'error.dark'
+                }
+              }}
+            >
+              <ListItemIcon>
+                <LogoutIcon fontSize="small" color="error" />
+              </ListItemIcon>
               Logout
             </MenuItem>
           </Menu>
