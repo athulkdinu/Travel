@@ -24,11 +24,13 @@ import {
   Settings as SettingsIcon,
   Person as PersonIcon,
   Logout as LogoutIcon,
-  Close as CloseIcon
+  Close as CloseIcon,
+  WbSunny as WeatherIcon
 } from '@mui/icons-material';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import WEATHER_APP_CONFIG from '../config/weatherConfig';
 
 const Navbar = ({ onOpenSidebar, mapOpen, setMapOpen }) => {
   const navigate = useNavigate();
@@ -44,6 +46,16 @@ const Navbar = ({ onOpenSidebar, mapOpen, setMapOpen }) => {
     handleCloseMenu();
     logout();
     navigate('/login');
+  };
+
+  const handleWeatherClick = () => {
+    if (WEATHER_APP_CONFIG.enabled && WEATHER_APP_CONFIG.url) {
+      if (WEATHER_APP_CONFIG.openInNewTab) {
+        window.open(WEATHER_APP_CONFIG.url, '_blank', 'noopener,noreferrer');
+      } else {
+        window.location.href = WEATHER_APP_CONFIG.url;
+      }
+    }
   };
 
   // Get user initials for avatar
@@ -99,6 +111,28 @@ const Navbar = ({ onOpenSidebar, mapOpen, setMapOpen }) => {
         </Box>
 
         <Box sx={{ ml: 'auto', display: 'flex', alignItems: 'center', gap: 1 }}>
+          {WEATHER_APP_CONFIG.enabled && WEATHER_APP_CONFIG.showInNavbar && (
+            <Chip 
+              label={WEATHER_APP_CONFIG.buttonText || '🌤️ Weather'} 
+              size="small" 
+              onClick={handleWeatherClick}
+              icon={<WeatherIcon sx={{ color: 'white !important' }} />}
+              sx={{ 
+                bgcolor: 'rgba(255,152,0,0.9)', 
+                color: 'white',
+                fontWeight: 600,
+                cursor: 'pointer',
+                display: { xs: 'none', md: 'flex' },
+                '&:hover': {
+                  bgcolor: 'rgba(255,152,0,1)',
+                  transform: 'scale(1.05)',
+                  boxShadow: '0 4px 12px rgba(255,152,0,0.4)'
+                },
+                transition: 'all 0.2s'
+              }} 
+            />
+          )}
+
           <Chip 
             label="🗺️ Route Tracking" 
             size="small" 

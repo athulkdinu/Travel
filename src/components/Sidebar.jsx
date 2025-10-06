@@ -12,15 +12,39 @@ import {
 import { 
   DirectionsCar as CarIcon,
   Favorite as FavoriteIcon,
-  Map as MapIcon
+  Map as MapIcon,
+  WbSunny as WeatherIcon
 } from '@mui/icons-material';
+import WEATHER_APP_CONFIG from '../config/weatherConfig';
 
 const Sidebar = ({ open, onClose, onShowAllTrips, onShowFavorites, onOpenMap, showOnlyFavorites }) => {
+  const handleWeatherClick = () => {
+    if (WEATHER_APP_CONFIG.enabled && WEATHER_APP_CONFIG.url) {
+      if (WEATHER_APP_CONFIG.openInNewTab) {
+        window.open(WEATHER_APP_CONFIG.url, '_blank', 'noopener,noreferrer');
+      } else {
+        window.location.href = WEATHER_APP_CONFIG.url;
+      }
+    }
+    onClose(); // Close sidebar after clicking
+  };
+
   const menuItems = [
     { text: 'All Trips', icon: <CarIcon />, onClick: onShowAllTrips, active: !showOnlyFavorites },
     { text: 'Favorited', icon: <FavoriteIcon />, onClick: onShowFavorites, active: showOnlyFavorites },
     { text: 'Map', icon: <MapIcon />, onClick: onOpenMap, active: false },
   ];
+
+  // Add weather option if enabled
+  if (WEATHER_APP_CONFIG.enabled && WEATHER_APP_CONFIG.showInSidebar) {
+    menuItems.push({ 
+      text: 'Weather App', 
+      icon: <WeatherIcon />, 
+      onClick: handleWeatherClick, 
+      active: false,
+      highlight: true 
+    });
+  }
 
   return (
     <Drawer
@@ -73,13 +97,13 @@ const Sidebar = ({ open, onClose, onShowAllTrips, onShowFavorites, onOpenMap, sh
               sx={{
                 borderRadius: 2,
                 py: 1.5,
-                bgcolor: item.active ? '#e3f2fd' : 'transparent',
-                border: item.active ? '2px solid #1976d2' : '2px solid transparent',
+                bgcolor: item.active ? '#e3f2fd' : (item.highlight ? '#fff3e0' : 'transparent'),
+                border: item.active ? '2px solid #1976d2' : (item.highlight ? '2px solid #ff9800' : '2px solid transparent'),
                 '&:hover': {
-                  bgcolor: '#e3f2fd',
+                  bgcolor: item.highlight ? '#ffe0b2' : '#e3f2fd',
                   transform: 'translateX(4px)',
                   '& .MuiListItemIcon-root': {
-                    color: '#1976d2'
+                    color: item.highlight ? '#ff9800' : '#1976d2'
                   }
                 },
                 transition: 'all 0.2s'
@@ -87,7 +111,7 @@ const Sidebar = ({ open, onClose, onShowAllTrips, onShowFavorites, onOpenMap, sh
             >
               <ListItemIcon sx={{ 
                 minWidth: 40,
-                color: item.active ? '#1976d2' : '#666',
+                color: item.active ? '#1976d2' : (item.highlight ? '#ff9800' : '#666'),
                 transition: 'color 0.2s'
               }}>
                 {item.icon}
@@ -97,7 +121,7 @@ const Sidebar = ({ open, onClose, onShowAllTrips, onShowFavorites, onOpenMap, sh
                 primaryTypographyProps={{
                   fontWeight: item.active ? 700 : 600,
                   fontSize: '0.95rem',
-                  color: item.active ? '#1976d2' : 'inherit'
+                  color: item.active ? '#1976d2' : (item.highlight ? '#e65100' : 'inherit')
                 }}
               />
             </ListItemButton>
